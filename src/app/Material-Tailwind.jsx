@@ -7,7 +7,6 @@ import {
   MenuHandler,
   MenuList,
   MenuItem,
-  Icon,
   Button,
 } from "@material-tailwind/react";
 

@@ -1,15 +1,18 @@
+"use client";
+import Image from "next/image";
 import {
   IconButton,
   Menu,
   MenuHandler,
   MenuList,
   MenuItem,
-  Icon,
-} from "../Material-Tailwind";
-import profile from "../../../public/profile.jpg";
-import Image from "next/image";
+} from "../app/Material-Tailwind";
+// import profile from "../../public/profile.jpg";
+import { signOut, useSession } from "next-auth/react";
 
 const Header = () => {
+  const { data: session } = useSession();
+
   return (
     <header className="sticky top-0 z-50 flex items-center px-4 py-2 shadow-md bg-white">
       <div>
@@ -61,12 +64,43 @@ const Header = () => {
           <i className="fa-solid fa-layer-group text-3xl" />
         </IconButton>
       </div>
-      <Image
-        src={profile}
-        alt="profile-name"
-        className="hidden md:block rounded-full h-10 w-10 ml-2 cursor-pointer"
-        loading="lazy"
-      />
+
+      <Menu>
+        <MenuHandler>
+          <img
+            alt="profile-name"
+            className="hidden md:block rounded-full h-10 w-10 ml-2 cursor-pointer"
+            src={session?.user?.image}
+            width={40}
+            height={40}
+          />
+        </MenuHandler>
+        <MenuList>
+          <MenuItem
+            className="flex gap-2"
+            onClick={async () => {
+              await signOut({ callbackUrl: "/Login" });
+              console.log("here");
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="h-4 w-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5.636 5.636a9 9 0 1012.728 0M12 3v9"
+              />
+            </svg>
+            <p className="font-normal">Sign Out</p>
+          </MenuItem>
+        </MenuList>
+      </Menu>
     </header>
   );
 };
