@@ -8,6 +8,11 @@ import {
   MenuList,
   MenuItem,
   Button,
+  Card,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
 } from "@material-tailwind/react";
 
 export {
@@ -18,4 +23,9 @@ export {
   MenuList,
   MenuItem,
   Button,
+  Card,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
 };

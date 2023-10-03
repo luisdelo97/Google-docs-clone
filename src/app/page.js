@@ -4,16 +4,20 @@ import { IconButton } from "./Material-Tailwind";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
+import Modal from "../components/Modal";
+import DocumentList from "../components/DocumentList";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
+
   if (!session) {
     redirect("/Login");
   }
   return (
     <>
       <div>
-        <Header />
+        <Header session={session} />
+
         <section className="bg-[#f8f9fa] pb-10 px-10">
           <div className="max-w-4xl mx-auto">
             <div className="py-6 flex items-center justify-between">
@@ -27,13 +31,7 @@ export default async function Home() {
               </IconButton>
             </div>
             <div>
-              <div className="relative h-52 w-40 border-2 cursor-pointer hover:border-blue-700">
-                <Image
-                  src="https://links.papareact.com/pju"
-                  layout="fill"
-                  alt="new-doc"
-                />
-              </div>
+              <Modal session={session} />
               <p className="ml-2 mt-2 font-semibold text-sm text-gray-700">
                 Blank
               </p>
@@ -41,13 +39,7 @@ export default async function Home() {
           </div>
         </section>
         <section className="bg-white px-10 md:px-0">
-          <div className="max-w-3xl mx-auto py-8 ">
-            <div className="flex items-center justify-between pb-5 text-sm text-gray-700">
-              <h2 className="font-medium flex-grow">My document</h2>
-              <p className="mr-12">Date Created</p>
-              <i className="fa-solid fa-folder block" />
-            </div>
-          </div>
+          <DocumentList session={session} />
         </section>
       </div>
     </>

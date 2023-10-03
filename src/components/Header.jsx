@@ -10,8 +10,8 @@ import {
 // import profile from "../../public/profile.jpg";
 import { signOut, useSession } from "next-auth/react";
 
-const Header = () => {
-  const { data: session } = useSession();
+const Header = ({ session }) => {
+  // const { data: session } = useSession();
 
   return (
     <header className="sticky top-0 z-50 flex items-center px-4 py-2 shadow-md bg-white">
@@ -37,7 +37,7 @@ const Header = () => {
         <IconButton
           color="blue"
           variant="outlined"
-          className="h-20 w-20 border-0"
+          className="h-20 w-20 focus:border-0 border-0 "
         >
           <i className="fa-solid fa-file-lines text-4xl " />
         </IconButton>
@@ -59,7 +59,7 @@ const Header = () => {
         <IconButton
           color="gray"
           variant="outlined"
-          className="h-20 w-20 border-0 block"
+          className="h-20 w-20 border-0 block focus:border-0"
         >
           <i className="fa-solid fa-layer-group text-3xl" />
         </IconButton>
@@ -67,7 +67,7 @@ const Header = () => {
 
       <Menu>
         <MenuHandler>
-          <img
+          <Image
             alt="profile-name"
             className="hidden md:block rounded-full h-10 w-10 ml-2 cursor-pointer"
             src={session?.user?.image}
